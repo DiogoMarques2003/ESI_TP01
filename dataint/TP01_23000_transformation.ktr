@@ -508,6 +508,11 @@
       <to>Salvar tabela</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Remover caracter especial</from>
+      <to>Salvar em JSON </to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>CSV file input</name>
@@ -520,7 +525,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}\..\data\input\data.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}\..\data\input\TP01_23000_data.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -678,6 +683,57 @@
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Remover caracter especial</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>version</in_stream_name>
+        <out_stream_name/>
+        <use_regex>yes</use_regex>
+        <replace_string>[^\w\s]</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>model</in_stream_name>
+        <out_stream_name/>
+        <use_regex>yes</use_regex>
+        <replace_string>[^\w\s]</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -880,7 +936,193 @@
     </remotesteps>
     <GUI>
       <xloc>752</xloc>
-      <yloc>128</yloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Salvar em JSON </name>
+    <type>JsonOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <outputValue>outputValue</outputValue>
+    <jsonBloc>data</jsonBloc>
+    <nrRowsInBloc/>
+    <operation_type>writetofile</operation_type>
+    <compatibility_mode>N</compatibility_mode>
+    <encoding>UTF-8</encoding>
+    <addtoresult>N</addtoresult>
+    <file>
+      <name>${Internal.Entry.Current.Directory}\..\data\output\data</name>
+      <extention>json</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <create_parent_folder>N</create_parent_folder>
+      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
+      <servlet_output>N</servlet_output>
+    </file>
+    <fields>
+      <field>
+        <name>make</name>
+        <element>marca</element>
+      </field>
+      <field>
+        <name>model</name>
+        <element>modelo</element>
+      </field>
+      <field>
+        <name>version</name>
+        <element>versao</element>
+      </field>
+      <field>
+        <name>price</name>
+        <element>preco</element>
+      </field>
+      <field>
+        <name>months_old_transf</name>
+        <element>idade_meses</element>
+      </field>
+      <field>
+        <name>power_transf</name>
+        <element>potencia</element>
+      </field>
+      <field>
+        <name>sale_type_transf</name>
+        <element>estado</element>
+      </field>
+      <field>
+        <name>num_owners_transf</name>
+        <element>donos</element>
+      </field>
+      <field>
+        <name>gear_type_transf</name>
+        <element>caixa</element>
+      </field>
+      <field>
+        <name>fuel_type_transf</name>
+        <element>combustivel</element>
+      </field>
+      <field>
+        <name>kms_transf</name>
+        <element>kms</element>
+      </field>
+      <field>
+        <name>idade_ano</name>
+        <element>idade_anos</element>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Salvar tabela</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>carros_usados</connection>
+    <schema/>
+    <table>carros_usados</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>marca</column_name>
+        <stream_name>make</stream_name>
+      </field>
+      <field>
+        <column_name>modelo</column_name>
+        <stream_name>model</stream_name>
+      </field>
+      <field>
+        <column_name>versao</column_name>
+        <stream_name>version</stream_name>
+      </field>
+      <field>
+        <column_name>preco</column_name>
+        <stream_name>price</stream_name>
+      </field>
+      <field>
+        <column_name>idade_meses</column_name>
+        <stream_name>months_old_transf</stream_name>
+      </field>
+      <field>
+        <column_name>potencia</column_name>
+        <stream_name>power_transf</stream_name>
+      </field>
+      <field>
+        <column_name>estado</column_name>
+        <stream_name>sale_type_transf</stream_name>
+      </field>
+      <field>
+        <column_name>donos</column_name>
+        <stream_name>num_owners_transf</stream_name>
+      </field>
+      <field>
+        <column_name>caixa</column_name>
+        <stream_name>gear_type_transf</stream_name>
+      </field>
+      <field>
+        <column_name>combustivel</column_name>
+        <stream_name>fuel_type_transf</stream_name>
+      </field>
+      <field>
+        <column_name>kms</column_name>
+        <stream_name>kms_transf</stream_name>
+      </field>
+      <field>
+        <column_name>idade_anos</column_name>
+        <stream_name>idade_ano</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1068,137 +1310,6 @@ if (kms == null) {
     <GUI>
       <xloc>448</xloc>
       <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Remover caracter especial</name>
-    <type>ReplaceString</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>version</in_stream_name>
-        <out_stream_name/>
-        <use_regex>yes</use_regex>
-        <replace_string>[^\w\s]</replace_string>
-        <replace_by_string/>
-        <set_empty_string>N</set_empty_string>
-        <replace_field_by_string/>
-        <whole_word>no</whole_word>
-        <case_sensitive>no</case_sensitive>
-        <is_unicode>no</is_unicode>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Salvar tabela</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>carros_usados</connection>
-    <schema/>
-    <table>carros_usados</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>marca</column_name>
-        <stream_name>make</stream_name>
-      </field>
-      <field>
-        <column_name>modelo</column_name>
-        <stream_name>model</stream_name>
-      </field>
-      <field>
-        <column_name>versao</column_name>
-        <stream_name>version</stream_name>
-      </field>
-      <field>
-        <column_name>preco</column_name>
-        <stream_name>price</stream_name>
-      </field>
-      <field>
-        <column_name>idade_meses</column_name>
-        <stream_name>months_old_transf</stream_name>
-      </field>
-      <field>
-        <column_name>potencia</column_name>
-        <stream_name>power_transf</stream_name>
-      </field>
-      <field>
-        <column_name>estado</column_name>
-        <stream_name>sale_type_transf</stream_name>
-      </field>
-      <field>
-        <column_name>donos</column_name>
-        <stream_name>num_owners_transf</stream_name>
-      </field>
-      <field>
-        <column_name>caixa</column_name>
-        <stream_name>gear_type_transf</stream_name>
-      </field>
-      <field>
-        <column_name>combustivel</column_name>
-        <stream_name>fuel_type_transf</stream_name>
-      </field>
-      <field>
-        <column_name>kms</column_name>
-        <stream_name>kms_transf</stream_name>
-      </field>
-      <field>
-        <column_name>idade_anos</column_name>
-        <stream_name>idade_ano</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>752</xloc>
-      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
