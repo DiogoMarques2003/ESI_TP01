@@ -327,7 +327,7 @@
       <logext>txt</logext>
       <add_date>Y</add_date>
       <add_time>Y</add_time>
-      <loglevel>Basic</loglevel>
+      <loglevel>Detailed</loglevel>
       <cluster>N</cluster>
       <slave_server_name/>
       <set_append_logfile>N</set_append_logfile>
@@ -429,7 +429,7 @@
       <auth_user>a23000@alunos.ipca.pt</auth_user>
       <auth_password>Encrypted 2bedacaa50cce9185af10a177d1dcff82</auth_password>
       <only_comment>Y</only_comment>
-      <use_HTML>Y</use_HTML>
+      <use_HTML>N</use_HTML>
       <use_Priority>N</use_Priority>
       <encoding>UTF-8</encoding>
       <priority>normal</priority>
